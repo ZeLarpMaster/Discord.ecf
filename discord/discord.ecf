@@ -3,11 +3,14 @@
 	<description>Library for interacting with the Discord API</description>
 	<target name="discord">
 		<root all_classes="true"/>
+		<version major="0" minor="0" release="1" build="0"/>
 		<option warning="true">
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<capability>
-			<concurrency use="thread"/>
+			<catcall_detection support="none"/>
+			<concurrency support="thread" use="thread"/>
+			<void_safety support="all"/>
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="thread" location="$ISE_LIBRARY\library\thread\thread-safe.ecf"/>
