@@ -15,6 +15,21 @@ feature -- Access
 	id: READABLE_STRING_GENERAL
 			-- The id of `Current'
 
+feature {NONE} -- Initialization
+
+	make_object(a_serializer: SERIALIZER; a_client: CLIENT; a_id: READABLE_STRING_GENERAL)
+			-- Initializes a basic object
+		do
+			make_serializable(a_serializer)
+			client := a_client
+			id := a_id
+		end
+
+feature -- Access
+
+	has_error: BOOLEAN
+			-- Whether or not `Current' had an error during initialization
+
 feature {NONE} -- Implementation
 
 	client: CLIENT
