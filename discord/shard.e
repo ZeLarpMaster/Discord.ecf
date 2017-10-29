@@ -14,6 +14,7 @@ feature {NONE} -- Initialization
 
 	make
 		do
+			create socket.make("")
 			create heartbeat_thread.make_with_interval(45, agent send_heartbeat)
 			last_ping := 0
 		end
@@ -33,5 +34,8 @@ feature {NONE} -- Implementation
 
 	heartbeat_thread: PERIODIC_THREAD
 			-- Thread sending the heartbeat at a constant frequency
+
+	socket: WEB_SOCKET
+			-- Socket connection to the Discord gateway
 
 end
