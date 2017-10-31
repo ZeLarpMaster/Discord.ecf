@@ -14,12 +14,20 @@ feature {NONE} -- Initialization
 
 	make
 		do
+			create config
+			create http.make(config)
 			create {ARRAYED_LIST[SHARD]} shards.make(1)
 		end
 
 feature {NONE} -- Implementation
 
+	config: CLIENT_CONFIG
+			-- General configuration of `Current'
+
 	shards: LIST[SHARD]
 			-- List of shards ordered by id
+
+	http: HTTP
+			-- Interface to the Discord REST API
 
 end

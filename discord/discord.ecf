@@ -13,6 +13,8 @@
 			<void_safety support="all"/>
 		</capability>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
+		<library name="http_client" location="$ISE_LIBRARY\contrib\library\network\http_client\http_client.ecf"/>
+		<library name="http_network" location="$ISE_LIBRARY\contrib\library\network\http_network\http_network.ecf"/>
 		<library name="json" location="$ISE_LIBRARY\contrib\library\text\parser\json\library\json.ecf"/>
 		<library name="thread" location="$ISE_LIBRARY\library\thread\thread-safe.ecf"/>
 		<cluster name="discord" location=".\" recursive="true">
