@@ -11,7 +11,8 @@ inherit
 	MODEL_FACTORY
 		redefine
 			create_server,
-			initialize_serializer
+			initialize_serializer,
+			encoding_name
 		end
 
 create
@@ -22,9 +23,20 @@ feature -- Basic Operations
 	create_server(a_data: JSON_OBJECT): detachable SERVER
 			-- <Precursor>
 		do
-			if attached {JSON_STRING} a_data.item("id") as la_string then
-				create Result.make(serializer, client, la_string.item)
+			if
+				attached {JSON_STRING} a_data.item("id") as la_string and
+				attached client as la_client
+			then
+				create Result.make(serializer, la_client, la_string.item)
 			end
+		end
+
+feature -- Access
+
+	encoding_name: READABLE_STRING_GENERAL
+			-- <Precursor>
+		do
+			Result := "json"
 		end
 
 feature {NONE} -- Implementation

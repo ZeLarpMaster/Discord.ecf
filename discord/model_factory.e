@@ -9,11 +9,29 @@ deferred class
 
 feature {NONE} -- Initialization
 
-	make(a_client: CLIENT)
-			-- Initializes `Current' using `a_client' when creating objects
+	make
+			-- Initializes `Current'
+		do
+			initialize_serializer
+		end
+
+feature -- Access
+
+	has_client: BOOLEAN
+			-- Whether or not `Current's client has been set
+		do
+			Result := attached client
+		end
+
+	set_client(a_client: CLIENT)
+			-- Sets the client transfered to models
 		do
 			client := a_client
-			initialize_serializer
+		end
+
+	encoding_name: READABLE_STRING_GENERAL
+			-- The name of `Current's encoding
+		deferred
 		end
 
 feature -- Basic Operations
@@ -21,6 +39,8 @@ feature -- Basic Operations
 	create_server(a_data: ANY): detachable SERVER
 			-- Creates a server using the information in `a_data'
 			-- The result will be detached if the data does not correspond to a server
+		require
+			Client_Set: has_client
 		deferred
 		end
 
@@ -31,7 +51,7 @@ feature {NONE} -- Implementation
 		deferred
 		end
 
-	client: CLIENT
+	client: detachable CLIENT
 			-- The {CLIENT} passed down to created models
 
 	serializer: SERIALIZER

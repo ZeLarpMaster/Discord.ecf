@@ -17,7 +17,7 @@ inherit
 feature -- Basic Operations
 
 	serialize_server(a_server: SERVER): JSON_OBJECT
-			-- Serializes `a_server'
+			-- <Precursor>
 		do
 			create Result.make_empty
 			Result.put_string(a_server.id, json_string_id)

@@ -12,11 +12,13 @@ create
 
 feature {NONE} -- Initialization
 
-	make
+	make(a_factory: MODEL_FACTORY)
+			-- Initializes `Current' with `a_factory' to deserialize models
 		do
-			create config
+			create config.make("a token", a_factory)
 			create http.make(config)
 			create {ARRAYED_LIST[SHARD]} shards.make(1)
+			a_factory.set_client(Current)
 		end
 
 feature {NONE} -- Implementation

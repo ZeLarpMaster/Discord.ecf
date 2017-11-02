@@ -7,7 +7,30 @@ note
 class
 	CLIENT_CONFIG
 
+create
+	make
+
+feature {NONE} -- Initialization
+
+	make(a_token: READABLE_STRING_GENERAL; a_factory: MODEL_FACTORY)
+			-- Initializes `Current' with `a_token' as the authentification token and `a_factory' to deserialize
+		require
+			Token_Not_Empty: not a_token.is_empty
+		do
+			token := a_token
+			factory := a_factory
+		ensure
+			Token_Set: token ~ a_token
+			Factory_Set: factory ~ a_factory
+		end
+
 feature -- Access
+
+	token: READABLE_STRING_GENERAL
+			-- The authentification token
+
+	factory: MODEL_FACTORY
+			-- Factory used to deserialize
 
 	library_name: READABLE_STRING_GENERAL
 			-- The name of this library
@@ -43,6 +66,12 @@ feature -- Access
 			-- The url of the Discord REST API for the current version
 		once("PROCESS")
 			Result := api_base_url + "/v" + api_protocol_version
+		end
+
+	gateway_parameters: READABLE_STRING_GENERAL
+			-- The gateway url's parameters
+		once("PROCESS")
+			Result := "/?v=" + api_protocol_version + "&encoding="
 		end
 
 end

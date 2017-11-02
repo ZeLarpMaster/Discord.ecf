@@ -12,7 +12,8 @@ create
 
 feature {NONE} -- Initialization
 
-	make
+	make(a_config: CLIENT_CONFIG; a_url: READABLE_STRING_GENERAL)
+			-- Initializes `Current' to connect to `a_url' with `a_config'
 		do
 			create socket.make("")
 			create heartbeat_thread.make_with_interval(45, agent send_heartbeat)
