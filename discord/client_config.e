@@ -71,7 +71,28 @@ feature -- Access
 	gateway_parameters: READABLE_STRING_GENERAL
 			-- The gateway url's parameters
 		once("PROCESS")
-			Result := "/?v=" + api_protocol_version + "&encoding="
+			Result := "/?v=" + api_protocol_version + "&encoding=" + factory.encoding_name
+		end
+
+	platform_name: READABLE_STRING_GENERAL
+			-- The current platform's OS name
+		local
+			l_platform: PLATFORM
+		once("PROCESS")
+			create l_platform
+			if l_platform.is_windows then
+				Result := "Windows"
+			elseif l_platform.is_mac then
+				Result := "MacOSX"
+			elseif l_platform.is_unix then
+				Result := "Unix"
+			elseif l_platform.is_vms then
+				Result := "VMS"
+			elseif l_platform.is_vxworks then
+				Result := "VXWorks"
+			else
+				Result := "Unknown"
+			end
 		end
 
 end

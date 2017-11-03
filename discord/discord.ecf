@@ -17,6 +17,7 @@
 		<library name="http_network" location="$ISE_LIBRARY\contrib\library\network\http_network\http_network.ecf"/>
 		<library name="json" location="$ISE_LIBRARY\contrib\library\text\parser\json\library\json.ecf"/>
 		<library name="thread" location="$ISE_LIBRARY\library\thread\thread-safe.ecf"/>
+		<library name="web_socket_client" location="$ISE_LIBRARY\contrib\library\network\websocket\client\web_socket_client.ecf"/>
 		<cluster name="discord" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/.git$</exclude>
