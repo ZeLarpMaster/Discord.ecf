@@ -15,4 +15,28 @@ feature -- Access
 			create Result.make_from_string_general("id")
 		end
 
+	json_string_d: JSON_STRING
+			-- {JSON_STRING} of "d"
+		once("PROCESS")
+			create Result.make_from_string_general("d")
+		end
+
+	json_string_op: JSON_STRING
+			-- {JSON_STRING} of "op"
+		once("PROCESS")
+			create Result.make_from_string_general("op")
+		end
+
+	json_string_s: JSON_STRING
+			-- {JSON_STRING} of "s"
+		once("PROCESS")
+			create Result.make_from_string_general("s")
+		end
+
+	json_string_t: JSON_STRING
+			-- {JSON_STRING} of "t"
+		once("PROCESS")
+			create Result.make_from_string_general("t")
+		end
+
 end

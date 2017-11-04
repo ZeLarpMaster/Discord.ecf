@@ -51,7 +51,7 @@ feature {NONE} -- Implementation
 	on_text_message(a_message: STRING)
 			-- Called when `socket' receives a message
 		do
-			
+
 		end
 
 	on_connect(a_message: STRING)

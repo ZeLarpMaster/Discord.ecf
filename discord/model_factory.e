@@ -34,13 +34,21 @@ feature -- Access
 		deferred
 		end
 
-feature -- Basic Operations
+feature -- REST Models
 
 	create_server(a_data: ANY): detachable SERVER
 			-- Creates a server using the information in `a_data'
 			-- The result will be detached if the data does not correspond to a server
 		require
 			Client_Set: has_client
+		deferred
+		end
+
+feature -- Gateway Models
+
+	parse_gateway_message(a_message: STRING): detachable GATEWAY_PAYLOAD
+			-- Creates a {GATEWAY_PAYLOAD} object from the contents of `a_message'
+			-- The result will be detached if the data does not correspond to a gateway payload
 		deferred
 		end
 
