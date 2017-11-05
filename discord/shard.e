@@ -37,21 +37,56 @@ feature -- Access
 			end
 		end
 
-	last_ping: NATURAL_32
+	last_ping: NATURAL_64
 			-- Last round-trip delay time in milliseconds
 
-feature {NONE} -- Implementation
+feature {NONE} -- Event Handling
 
 	send_heartbeat
 			-- Send a heartbeat in the gateway
 		do
+			if attached last_heartbeat_time then
+				-- If a client does not receive a heartbeat ack between its attempts at sending heartbeats,
+				-- it should immediately terminate the connection with a non 1000 close code, reconnect, and attempt to resume
 
+			else
+				create last_heartbeat_time.make_now
+				socket.send(config.factory.serializer.serialize_payload(config.factory.create_heartbeat_payload(last_sequence_number)))
+			end
 		end
+
+feature {NONE} -- Socket Events
 
 	on_text_message(a_message: STRING)
 			-- Called when `socket' receives a message
+		local
+			l_payload: GATEWAY_PAYLOAD
+			l_time_now: DATE_TIME
 		do
-
+			l_payload := config.factory.parse_gateway_message(a_message)
+			if attached l_payload as la_payload then
+				if la_payload.is_dispatch then
+					-- Parse event type and underlying models
+				elseif la_payload.is_heartbeat then
+					send_heartbeat
+				elseif la_payload.is_heartbeat_ack and attached last_heartbeat_time as la_last_time then
+					create l_time_now.make_now
+					last_ping := l_time_now.duration.minus(la_last_time.duration).fine_second.product(1000).rounded.to_natural_64
+					last_heartbeat_time := Void
+				elseif la_payload.is_reconnect then
+					-- reconnect and resume instantly
+				elseif la_payload.is_invalid_session then
+					if config.factory.parse_invalid_session_data(la_payload) then
+						-- Attempt resuming
+					else
+						-- Terminate connection and try reconnecting
+					end
+				elseif la_payload.is_hello and attached {NATURAL_64} config.factory.parse_hello_interval(la_payload) as la_interval then
+					create heartbeat_thread.make_with_interval(la_interval, agent send_heartbeat)
+				end
+			else
+				print("Received invalid payload: " + a_message + "%N")
+			end
 		end
 
 	on_connect(a_message: STRING)
@@ -72,6 +107,8 @@ feature {NONE} -- Implementation
 			print("The gateway has closed with code " + a_code.out + ": " + a_reason + "%N")
 		end
 
+feature {NONE} -- Implementation
+
 	heartbeat_thread: detachable PERIODIC_THREAD
 			-- Thread sending the heartbeat at a constant frequency
 
@@ -83,5 +120,11 @@ feature {NONE} -- Implementation
 
 	config: CLIENT_CONFIG
 			-- General configurations of this application
+
+	last_heartbeat_time: detachable DATE_TIME
+			-- {DATE_TIME} of the last heartbeat sent
+
+	last_sequence_number: NATURAL_64
+			-- The last event sequence number received
 
 end

@@ -18,24 +18,41 @@ create
 
 feature {NONE} -- Initialization
 
-	make_with_interval(a_interval: NATURAL_32; a_routine: ROUTINE[TUPLE])
+	make_with_interval(a_interval: NATURAL_64; a_routine: ROUTINE[TUPLE])
 			-- Initializes `Current' to execute `a_routine' every `a_interval' seconds
 		do
 			make
 			interval := a_interval
 			routine := a_routine
+			must_stop := False
 		end
 
 feature -- Basic Operations
 
 	execute
+			-- <Precursor>
 		do
+			from
+			until
+				must_stop
+			loop
+				routine.call
+				sleep((interval * 1000000000).to_integer_64)
+			end
+		end
 
+	stop_thread
+			-- Stops the execution of `Current'
+		do
+			must_stop := True
 		end
 
 feature {NONE} -- Implementation
 
-	interval: NATURAL_32
+	must_stop: BOOLEAN
+			-- Whether or not `Current' should stop running
+
+	interval: NATURAL_64
 			-- Number of seconds in between each call of `routine'
 
 	routine: ROUTINE[TUPLE]

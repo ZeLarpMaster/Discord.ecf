@@ -36,6 +36,10 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
+	opcode: like Dispatch
+			-- The opcode representing which type of payload `Current' is
+			-- For a list of opcode, see https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-opcodes
+
 	data: detachable ANY
 			-- The data contained in `Current' ("d" field in gateway payloads)
 
@@ -47,8 +51,14 @@ feature -- Access
 
 feature -- Type Checks
 
+	can_be_sent: BOOLEAN
+			-- Whether or not `Current' is a payload which can be sent
+		do
+			Result := is_heartbeat or is_identify or is_status_update or is_voice_state_update or is_voice_server_ping or is_resume or is_request_guild_members
+		end
+
 	is_dispatch: BOOLEAN
-			-- Whether or not `Current' is a`Dispatch' payload
+			-- Whether or not `Current' is a `Dispatch' payload
 		do
 			Result := opcode ~ Dispatch
 		end
@@ -118,11 +128,5 @@ feature -- Type Checks
 		do
 			Result := opcode ~ Heartbeat_ack
 		end
-
-feature {NONE} -- Implementation
-
-	opcode: like Dispatch
-			-- The opcode representing which type of payload `Current' is
-			-- For a list of opcode, see https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-opcodes
 
 end

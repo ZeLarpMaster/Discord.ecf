@@ -9,11 +9,6 @@ class
 
 inherit
 	MODEL_FACTORY
-		redefine
-			create_server,
-			initialize_serializer,
-			encoding_name
-		end
 	JSON_STRING_CONSTANTS
 
 create
@@ -40,7 +35,7 @@ feature -- Gateway Models
 			l_parser: JSON_PARSER
 			l_opcode: NATURAL_8
 			l_data: detachable ANY
-			l_sequence: detachable NATURAL_8
+			l_sequence: detachable NATURAL_64
 			l_event: detachable READABLE_STRING_GENERAL
 		do
 			create l_parser.make_with_string(a_message)
@@ -53,12 +48,30 @@ feature -- Gateway Models
 					l_data := la_data
 				end
 				if attached {JSON_NUMBER} la_object.item(json_string_s) as la_sequence then
-					l_sequence := la_sequence.natural_64_item.as_natural_8
+					l_sequence := la_sequence.natural_64_item
 				end
 				if attached {JSON_STRING} la_object.item(json_string_t) as la_event then
 					l_event := la_event.item
 				end
 				create Result.make(l_opcode, l_data, l_sequence, l_event)
+			end
+		end
+
+	parse_hello_interval(a_payload: GATEWAY_PAYLOAD): detachable NATURAL_64
+			-- <Precursor>
+		do
+			if attached {JSON_OBJECT} a_payload.data as la_data then
+				if attached {JSON_NUMBER} la_data.item(json_string_heartbeat_interval) as la_interval then
+					Result := la_interval.natural_64_item
+				end
+			end
+		end
+
+	parse_invalid_session_data(a_payload: GATEWAY_PAYLOAD): BOOLEAN
+			-- <Precursor>
+		do
+			if attached {JSON_BOOLEAN} a_payload.data as la_data then
+				Result := la_data.item
 			end
 		end
 

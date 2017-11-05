@@ -39,4 +39,10 @@ feature -- Access
 			create Result.make_from_string_general("t")
 		end
 
+	json_string_heartbeat_interval: JSON_STRING
+			-- {JSON_STRING} of "heartbeat_interval"
+		once("PROCESS")
+			create Result.make_from_string_general("heartbeat_interval")
+		end
+
 end
