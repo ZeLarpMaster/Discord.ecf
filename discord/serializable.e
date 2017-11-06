@@ -15,7 +15,7 @@ feature {NONE} -- Initialization
 			serializer := a_serializer
 		end
 
-feature -- Access
+feature -- Basic Operations
 
 	serialize: ANY
 			-- Serialize `Current'

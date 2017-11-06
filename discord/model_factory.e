@@ -52,6 +52,14 @@ feature -- REST Models
 
 feature -- Gateway Models
 
+	create_identify_payload(): GATEWAY_PAYLOAD
+			-- Creates an identify {GATEWAY_PAYLOAD}
+		local
+			l_identify: IDENTIFICATION_STRUCTURE
+		do
+			create l_identify.make(serializer)
+		end
+
 	create_heartbeat_payload(a_sequence: NATURAL_64): GATEWAY_PAYLOAD
 			-- Creates a heartbeat {GATEWAY_PAYLOAD} with sequence number `a_sequence'
 		local

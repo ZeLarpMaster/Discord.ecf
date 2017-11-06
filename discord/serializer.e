@@ -23,4 +23,19 @@ feature -- Gateway Models
 		deferred
 		end
 
+	serialize_connection_properties(a_connection_properties: GATEWAY_CONNECTION_PROPERTIES): ANY
+			-- Serializes `a_connection_properties'
+		deferred
+		end
+
+	serialize_presence(a_presence: PRESENCE): ANY
+			-- Serializes `a_presence'
+		deferred
+		end
+
+	serialize_identify_structure(a_identify: IDENTIFICATION_STRUCTURE; a_shard_id: NATURAL_64): STRING_8
+			-- Serializes `a_identify' with `a_shard_id' as it's shard_id
+		deferred
+		end
+
 end

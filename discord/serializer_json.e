@@ -43,4 +43,24 @@ feature -- Gateway Models
 			Result := l_json.representation
 		end
 
+	serialize_connection_properties(a_connection_properties: GATEWAY_CONNECTION_PROPERTIES): ANY
+			-- <Precursor>
+		do
+		end
+
+	serialize_presence(a_presence: PRESENCE): ANY
+			-- <Precursor>
+		do
+		end
+
+	serialize_identify_structure(a_identify: IDENTIFICATION_STRUCTURE; a_shard_id: NATURAL_64): STRING_8
+			-- <Precursor>
+		local
+			l_json: JSON_OBJECT
+		do
+			create l_json.make_with_capacity(6)
+
+			Result := l_json.representation
+		end
+
 end

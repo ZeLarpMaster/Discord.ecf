@@ -95,4 +95,10 @@ feature -- Access
 			end
 		end
 
+	create_identify_payload(a_shard_id: NATURAL_64): GATEWAY_PAYLOAD
+			-- Creates the identify {GATEWAY_PAYLOAD} for the idenfication of the shard with id `a_shard_id'
+		do
+			Result := factory.create_identify_payload()
+		end
+
 end

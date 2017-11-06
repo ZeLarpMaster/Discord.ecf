@@ -12,12 +12,13 @@ create
 
 feature {NONE} -- Initialization
 
-	make(a_config: CLIENT_CONFIG; a_url: READABLE_STRING_GENERAL)
-			-- Initializes `Current' to connect to `a_url' with `a_config'
+	make(a_config: CLIENT_CONFIG; a_url: READABLE_STRING_GENERAL; a_shard_id: NATURAL_64)
+			-- Initializes `Current' to connect to `a_url' with `a_config' as the shard # `a_shard_id'
 		do
 			create socket.make(a_url + a_config.gateway_parameters)
 			last_ping := 0
 			config := a_config
+			shard_id := a_shard_id
 			socket.open_actions.extend(agent on_connect)
 			socket.text_message_actions.extend(agent on_text_message)
 			socket.close_actions.extend(agent on_close)
@@ -40,7 +41,16 @@ feature -- Access
 	last_ping: NATURAL_64
 			-- Last round-trip delay time in milliseconds
 
-feature {NONE} -- Event Handling
+	shard_id: NATURAL_64
+			-- The id of `Current'
+
+feature {NONE} -- Gateway Actions
+
+	send_identify
+			-- Identifies `Current' on the gateway
+		do
+			socket.send(config.factory.serializer.serialize_payload(config.create_identify_payload(shard_id)))
+		end
 
 	send_heartbeat
 			-- Send a heartbeat in the gateway
