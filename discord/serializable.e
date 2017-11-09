@@ -13,6 +13,8 @@ feature {NONE} -- Initialization
 			-- Initializes `serializer' with `a_serializer'
 		do
 			serializer := a_serializer
+		ensure
+			Serializer_Set: serializer ~ a_serializer
 		end
 
 feature -- Basic Operations

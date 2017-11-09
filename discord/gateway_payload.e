@@ -12,19 +12,33 @@ inherit
 	GATEWAY_OPCODES
 
 create
-	make
+	make,
+	make_full
 
 feature {NONE} -- Initialization
 
-	make(a_opcode: like Dispatch; a_data: detachable ANY; a_sequence: detachable NATURAL_64; a_name: detachable READABLE_STRING_GENERAL)
-			-- Initializes `Current' with variable data contents as a payload with opcode `a_opcode'
+	make(a_opcode: like Dispatch; a_data: detachable ANY)
+			-- Initializes `Current' with variable data contents `a_data' as a payload with opcode `a_opcode'
+		require
+			Valid_Opcode: is_valid_opcode(a_opcode)
+		do
+			opcode := a_opcode
+			data := a_data
+		ensure
+			Opcode_Set: opcode ~ a_opcode
+			Data_Set: data ~ a_data
+			Sequence_Not_Set: not attached sequence_number
+			Name_Not_Set: not attached event_name
+		end
+
+	make_full(a_opcode: like Dispatch; a_data: detachable ANY; a_sequence: detachable NATURAL_64; a_name: detachable READABLE_STRING_GENERAL)
+			-- Initializes `Current' using `make' and with `sequence_number' `a_sequence' and `event_name' `a_name'
 		require
 			Valid_Opcode: is_valid_opcode(a_opcode)
 			Dispatch_is_sequenced: a_opcode ~ Dispatch = attached a_sequence
 			Dispatch_is_named: a_opcode ~ Dispatch = attached a_name
 		do
-			opcode := a_opcode
-			data := a_data
+			make(a_opcode, a_data)
 			sequence_number := a_sequence
 			event_name := a_name
 		ensure

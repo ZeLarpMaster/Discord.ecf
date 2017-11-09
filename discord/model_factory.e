@@ -52,21 +52,33 @@ feature -- REST Models
 
 feature -- Gateway Models
 
-	create_identify_payload(): GATEWAY_PAYLOAD
+	create_presence(a_status: PRESENCE_STATUS; a_is_afk: BOOLEAN; a_game: detachable GAME_STATUS; a_idle_since: detachable DATE_TIME): PRESENCE
+			-- Creates a {PRESENCE}
+		do
+			create Result.make(serializer, a_status, a_is_afk, a_game, a_idle_since)
+		end
+
+	create_connection_properties(a_os, a_browser, a_device: READABLE_STRING_GENERAL): GATEWAY_CONNECTION_PROPERTIES
+			-- Creates a {GATEWAY_CONNECTION_PROPERTIES}
+		do
+			create Result.make(serializer, a_os, a_browser, a_device)
+		end
+
+	create_identify_payload(a_token: READABLE_STRING_GENERAL; a_properties: GATEWAY_CONNECTION_PROPERTIES; a_compress: BOOLEAN;
+							a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: PRESENCE; a_shard_id: NATURAL_64): GATEWAY_PAYLOAD
 			-- Creates an identify {GATEWAY_PAYLOAD}
 		local
 			l_identify: IDENTIFICATION_STRUCTURE
 		do
-			create l_identify.make(serializer)
+			create l_identify.make(serializer, a_token, a_properties, a_compress, a_large_threshold, a_shard_number, a_presence)
+			l_identify.shard_id := a_shard_id
+			create Result.make(Identify, l_identify)
 		end
 
 	create_heartbeat_payload(a_sequence: NATURAL_64): GATEWAY_PAYLOAD
 			-- Creates a heartbeat {GATEWAY_PAYLOAD} with sequence number `a_sequence'
-		local
-			l_sequence: detachable NATURAL_64
-			l_name: detachable READABLE_STRING_GENERAL
 		do
-			create Result.make(Heartbeat, a_sequence, l_sequence, l_name)
+			create Result.make(Heartbeat, a_sequence)
 		end
 
 	parse_gateway_message(a_message: STRING): detachable GATEWAY_PAYLOAD

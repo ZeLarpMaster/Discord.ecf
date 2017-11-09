@@ -51,6 +51,14 @@ feature -- Basic Operations
 			No_Shard_Id_Empty_Result: not Result.is_empty = attached shard_id
 		end
 
+	set_shard_id(a_shard_id: NATURAL_64)
+			-- Assigns `a_shard_id' into `shard_id'
+		do
+			shard_id := a_shard_id
+		ensure
+			Shard_Id_Set: shard_id ~ a_shard_id
+		end
+
 feature -- Access
 
 	token: READABLE_STRING_GENERAL
@@ -68,7 +76,7 @@ feature -- Access
 	shard_number: NATURAL_64
 			-- The total number of {SHARD}s in the current application
 
-	shard_id: detachable NATURAL_64
+	shard_id: detachable NATURAL_64 assign set_shard_id
 			-- The identifier of the shard currently identified
 
 	presence: PRESENCE

@@ -46,10 +46,10 @@ feature -- Access
 
 feature {NONE} -- Gateway Actions
 
-	send_identify
+	send_identify(a_shard_number: NATURAL_64)
 			-- Identifies `Current' on the gateway
 		do
-			socket.send(config.factory.serializer.serialize_payload(config.create_identify_payload(shard_id)))
+			socket.send(config.factory.serializer.serialize_payload(config.create_identify_payload(shard_id, a_shard_number)))
 		end
 
 	send_heartbeat

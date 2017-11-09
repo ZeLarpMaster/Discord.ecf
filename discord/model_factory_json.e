@@ -53,7 +53,7 @@ feature -- Gateway Models
 				if attached {JSON_STRING} la_object.item(json_string_t) as la_event then
 					l_event := la_event.item
 				end
-				create Result.make(l_opcode, l_data, l_sequence, l_event)
+				create Result.make_full(l_opcode, l_data, l_sequence, l_event)
 			end
 		end
 

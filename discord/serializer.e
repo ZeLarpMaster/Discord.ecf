@@ -38,4 +38,9 @@ feature -- Gateway Models
 		deferred
 		end
 
+	serialize_game_status(a_game_status: GAME_STATUS; a_type: NATURAL_8): ANY
+			-- Serializes `a_game_status' with `a_type' as it's type
+		deferred
+		end
+
 end
