@@ -77,8 +77,8 @@ feature -- Gateway Models
 			l_shard_array: JSON_ARRAY
 		do
 			create l_shard_array.make(2)
-			l_shard_array.put_front(create {JSON_NUMBER}.make_natural(a_identify.shard_number))
-			l_shard_array.put_front(create {JSON_NUMBER}.make_natural(a_shard_id))
+			l_shard_array.add(create {JSON_NUMBER}.make_natural(a_shard_id))
+			l_shard_array.add(create {JSON_NUMBER}.make_natural(a_identify.shard_number))
 			create l_json.make_with_capacity(6)
 			l_json.put_boolean(a_identify.compress, json_string_compress)
 			l_json.put_natural(a_identify.large_threshold, json_string_large_threshold)
