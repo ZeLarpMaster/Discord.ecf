@@ -35,7 +35,7 @@ feature -- Gateway Models
 			l_parser: JSON_PARSER
 			l_opcode: NATURAL_8
 			l_data: detachable ANY
-			l_sequence: detachable NATURAL_64
+			l_sequence: detachable CELL[NATURAL_64]
 			l_event: detachable READABLE_STRING_GENERAL
 		do
 			create l_parser.make_with_string(a_message)
@@ -48,7 +48,7 @@ feature -- Gateway Models
 					l_data := la_data
 				end
 				if attached {JSON_NUMBER} la_object.item(json_string_s) as la_sequence then
-					l_sequence := la_sequence.natural_64_item
+					create l_sequence.put(la_sequence.natural_64_item)
 				end
 				if attached {JSON_STRING} la_object.item(json_string_t) as la_event then
 					l_event := la_event.item

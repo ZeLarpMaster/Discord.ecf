@@ -48,7 +48,7 @@ feature -- Basic Operations
 			Shard_Id_Set: attached shard_id
 		do
 			if attached shard_id as la_shard_id then
-				Result := serializer.serialize_identify_structure(Current, la_shard_id)
+				Result := serializer.serialize_identify_structure(Current, la_shard_id.item)
 			else
 				Result := ""
 			end
@@ -59,9 +59,13 @@ feature -- Basic Operations
 	set_shard_id(a_shard_id: NATURAL_64)
 			-- Assigns `a_shard_id' into `shard_id'
 		do
-			shard_id := a_shard_id
+			if attached shard_id as la_shard then
+				la_shard.replace(a_shard_id)
+			else
+				create shard_id.put(a_shard_id)
+			end
 		ensure
-			Shard_Id_Set: shard_id ~ a_shard_id
+			Shard_Id_Set: attached shard_id as la_shard and then la_shard.item ~ a_shard_id
 		end
 
 feature -- Access
@@ -81,7 +85,7 @@ feature -- Access
 	shard_number: NATURAL_64
 			-- The total number of {SHARD}s in the current application
 
-	shard_id: detachable NATURAL_64 assign set_shard_id
+	shard_id: detachable CELL[NATURAL_64]
 			-- The identifier of the shard currently identified
 
 	presence: PRESENCE

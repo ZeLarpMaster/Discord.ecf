@@ -82,7 +82,7 @@ feature -- Gateway Models
 			l_identify: IDENTIFICATION_STRUCTURE
 		do
 			create l_identify.make(serializer, a_token, a_properties, a_compress, a_large_threshold, a_shard_number, a_presence)
-			l_identify.shard_id := a_shard_id
+			l_identify.set_shard_id(a_shard_id)
 			create Result.make(Identify, l_identify)
 		ensure
 			Result_is_Identify: Result.is_identify

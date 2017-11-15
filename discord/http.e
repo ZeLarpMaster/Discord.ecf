@@ -27,7 +27,7 @@ feature -- Basic Operations
 	get_who_am_i
 			-- TODO: https://discordapp.com/developers/docs/topics/oauth2#get-current-application-information
 		do
-			
+
 		end
 
 	get_gateway_information
@@ -49,7 +49,7 @@ feature -- Basic Operations
 					attached {JSON_NUMBER} la_json.item("shards") as la_shards
 				then
 					last_gateway_url := la_url.item
-					last_suggested_shards := la_shards.natural_64_item
+					create last_suggested_shards.put(la_shards.natural_64_item)
 				end
 			end
 		end
@@ -59,7 +59,7 @@ feature -- Access
 	last_gateway_url: detachable READABLE_STRING_GENERAL
 			-- The last gateway url acquired in `get_gateway_information'
 
-	last_suggested_shards: detachable NATURAL_64
+	last_suggested_shards: detachable CELL[NATURAL_64]
 			-- The last suggested number of shards acquired in `get_gateway_information'
 
 	is_authentified: BOOLEAN

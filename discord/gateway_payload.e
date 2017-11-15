@@ -31,7 +31,7 @@ feature {NONE} -- Initialization
 			Name_Not_Set: not attached event_name
 		end
 
-	make_full(a_opcode: like Dispatch; a_data: detachable ANY; a_sequence: detachable NATURAL_64; a_name: detachable READABLE_STRING_GENERAL)
+	make_full(a_opcode: like Dispatch; a_data: like data; a_sequence: like sequence_number; a_name: like event_name)
 			-- Initializes `Current' using `make' and with the sequence number `a_sequence' and event name `a_name'
 		require
 			Valid_Opcode: is_valid_opcode(a_opcode)
@@ -57,7 +57,7 @@ feature -- Access
 	data: detachable ANY
 			-- The data contained in `Current' ("d" field in gateway payloads)
 
-	sequence_number: detachable NATURAL_64
+	sequence_number: detachable CELL[NATURAL_64]
 			-- The sequence number of the payload ("s" field in gateway payloads)
 
 	event_name: detachable READABLE_STRING_GENERAL
