@@ -1,8 +1,9 @@
 note
-	description: "Socket connected to the Discord gateway"
+	description: "Socket connected to the Discord gateway; Mostly based off the version linked below"
 	author: "ZeLarpMaster"
 	date: "Sun, 29 Oct 2017 04:19:05 +0000"
 	revision: "0.0.1"
+	url: "https://github.com/tioui/Eiffel_Discord_POC/blob/master/discord_web_socket.e"
 
 class
 	GATEWAY_SOCKET
@@ -108,8 +109,6 @@ feature {NONE} -- Implementation
 	receive_handshake
 			-- Receive the websocket handsake from the server
 			-- See https://github.com/tioui/Eiffel_Discord_POC/blob/master/discord_web_socket.e for more information
-		local
-			line: detachable STRING_8
 		do
 			analyze_request_message
 			if server_handshake.request_header.as_upper.has_substring ("HTTP/1.1 101") and then attached server_handshake.request_header_map.item ("upgrade") as l_upgrade_key and then -- Upgrade header must be present with value websocket
@@ -130,26 +129,26 @@ feature {NONE} -- Implementation
 		end
 
 	on_open(a_message: STRING)
-			-- `Current' has been opened. `a_message' have been received at opening
+			-- `Current' has been opened. `a_message' has been received at opening
 		do
 			open_actions.call(a_message)
 		end
 
 	on_text_message(a_message: STRING)
-			-- `Current' have receive a text message `a_message'
+			-- `Current' has receive a text message `a_message'
 		do
 			text_message_actions.call(a_message)
 		end
 
 	on_binary_message(a_message: STRING)
-			-- `Current' have receive a binary message `a_message'
+			-- `Current' has receive a binary message `a_message'
 		do
 			binary_message_actions.call(a_message)
 		end
 
 	on_close(a_code: INTEGER; a_reason: STRING)
-			-- The connection has been closed. The reason
-			-- can be checked with `a_code' or with a human readable `a_reason'.
+			-- The connection has been closed.
+			-- The reason can be checked with `a_code' or with a human readable `a_reason'.
 		do
 			close_actions.call(a_code, a_reason)
 		end

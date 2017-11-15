@@ -19,6 +19,9 @@ feature {NONE} -- Initialization
 			create http.make(config)
 			create {ARRAYED_LIST[SHARD]} shards.make(1)
 			a_factory.set_client(Current)
+		ensure
+			Config_Has_Factory: config.factory ~ a_factory
+			Factory_Has_Client: config.factory.has_client
 		end
 
 feature {NONE} -- Implementation

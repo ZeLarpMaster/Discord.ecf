@@ -26,6 +26,9 @@ feature {NONE} -- Initialization
 			create socket_thread.make(agent do socket.execute end)
 		ensure
 			Config_Set: config ~ a_config
+			Shard_Id_Set: shard_id ~ a_shard_id
+			Url_Set: socket.uri ~ a_url
+			No_Ping_At_First: last_ping ~ 0
 		end
 
 feature -- Access

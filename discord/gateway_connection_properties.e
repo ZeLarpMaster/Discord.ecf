@@ -3,6 +3,7 @@ note
 	author: "ZeLarpMaster"
 	date: "Mon, 6 Nov 2017 20:39:17 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-identify-gateway-identify-connection-properties"
 
 class
 	GATEWAY_CONNECTION_PROPERTIES
@@ -50,4 +51,6 @@ feature -- Basic Operations
 			Result := serializer.serialize_connection_properties(Current)
 		end
 
+invariant
+	No_Empty_Attribute: not (os_name.is_empty or browser_name.is_empty or device_name.is_empty)
 end

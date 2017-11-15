@@ -19,7 +19,7 @@ feature {NONE} -- Initialization
 		do
 			token := a_token
 			factory := a_factory
-			create default_presence.make(factory.serializer, create {PRESENCE_STATUS}.make_online, False, Void, Void)
+			create default_presence.make(factory.serializer, create {PRESENCE_STATUS}.make_online, False, Void, Void) -- Will be received as an argument later?
 		ensure
 			Token_Set: token ~ a_token
 			Factory_Set: factory ~ a_factory
@@ -38,6 +38,9 @@ feature -- Access
 
 	large_threshold: NATURAL_8 = 250
 			-- The number of {MEMBER}s in a {SERVER} before Discord stops sending us offline {MEMBER}s
+
+	default_presence: PRESENCE
+			-- The {PRESENCE} of the application on startup
 
 	library_name: READABLE_STRING_GENERAL
 			-- The name of this library
@@ -107,9 +110,6 @@ feature -- Access
 		once("PROCESS")
 			Result := factory.create_connection_properties(platform_name, library_name, library_name)
 		end
-
-	default_presence: PRESENCE
-			-- The {PRESENCE} of the application on startup
 
 	create_identify_payload(a_shard_id: NATURAL_64; a_shard_number: NATURAL_64): GATEWAY_PAYLOAD
 			-- Creates the identify {GATEWAY_PAYLOAD} for the identification of the shard with id `a_shard_id'

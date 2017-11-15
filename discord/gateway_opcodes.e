@@ -1,9 +1,9 @@
 note
 	description: "Constants for each possible gateway opcode"
-	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-opcodes"
 	author: "ZeLarpMaster"
 	date: "Fri, 3 Nov 2017 22:06:12 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-opcodes"
 
 class
 	GATEWAY_OPCODES
@@ -15,7 +15,7 @@ feature -- Basic Operations
 		do
 			Result := Dispatch <= a_opcode and a_opcode <= Heartbeat_ack
 		ensure
-			Result_True_if_in_range: Result = (Dispatch <= a_opcode and a_opcode <= Heartbeat_ack)
+			Result_True_if_in_Range: Result = (Dispatch <= a_opcode and a_opcode <= Heartbeat_ack)
 		end
 
 feature -- Constants

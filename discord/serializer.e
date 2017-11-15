@@ -19,7 +19,7 @@ feature -- Gateway Models
 	serialize_payload(a_payload: GATEWAY_PAYLOAD): STRING_8
 			-- Serializes `a_payload' into a string sent by the socket
 		require
-			Cant_Serialize_Receive_Payloads: not a_payload.can_be_sent
+			Only_Serialize_Send_Payloads: a_payload.can_be_sent
 		deferred
 		end
 

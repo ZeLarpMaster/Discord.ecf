@@ -101,4 +101,7 @@ feature {NONE} -- Type Constants
 	Streaming: like type = 1
 			-- Stremaing `name'
 
+invariant
+	Playing_Has_No_Url: is_playing implies url.is_empty
+	Streaming_Url_is_Twitch: is_streaming and not url.is_empty implies url.starts_with("https://twitch.tv/")
 end

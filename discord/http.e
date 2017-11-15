@@ -24,6 +24,12 @@ feature {NONE} -- Initialization
 
 feature -- Basic Operations
 
+	get_who_am_i
+			-- TODO: https://discordapp.com/developers/docs/topics/oauth2#get-current-application-information
+		do
+			
+		end
+
 	get_gateway_information
 			-- Fetches the gateway information for the current logged in account
 		require
@@ -37,6 +43,7 @@ feature -- Basic Operations
 				create l_json_parser.make_with_string(la_body)
 				l_json_parser.parse_content
 				if
+					-- TODO: Move those things into the factory cause they don't belong here
 					attached {JSON_OBJECT} l_json_parser.parsed_json_value as la_json and then
 					attached {JSON_STRING} la_json.item("url") as la_url and then
 					attached {JSON_NUMBER} la_json.item("shards") as la_shards

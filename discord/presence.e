@@ -3,6 +3,7 @@ note
 	author: "ZeLarpMaster"
 	date: "Mon, 6 Nov 2017 20:35:33 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-status-update-gateway-status-update-structure"
 
 class
 	PRESENCE
@@ -27,6 +28,7 @@ feature {NONE} -- Initialization
 		ensure
 			Serializer_Set: serializer ~ a_serializer
 			Status_Set: status ~ a_status
+			Is_Afk_Set: is_afk ~ a_is_afk
 			Game_Set: game ~ a_game
 			Idle_Since_Set: idle_since ~ a_idle_since
 		end

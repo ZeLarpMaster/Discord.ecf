@@ -45,6 +45,8 @@ feature -- Basic Operations
 			-- Stops the execution of `Current'
 		do
 			must_stop := True
+		ensure
+			Will_Stop: must_stop
 		end
 
 feature {NONE} -- Implementation

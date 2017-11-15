@@ -1,9 +1,9 @@
 note
 	description: "Model containing the information in a gateway payload"
-	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-payload-structure"
 	author: "ZeLarpMaster"
 	date: "Fri, 3 Nov 2017 21:03:24 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-payload-structure"
 
 class
 	GATEWAY_PAYLOAD
@@ -32,11 +32,11 @@ feature {NONE} -- Initialization
 		end
 
 	make_full(a_opcode: like Dispatch; a_data: detachable ANY; a_sequence: detachable NATURAL_64; a_name: detachable READABLE_STRING_GENERAL)
-			-- Initializes `Current' using `make' and with `sequence_number' `a_sequence' and `event_name' `a_name'
+			-- Initializes `Current' using `make' and with the sequence number `a_sequence' and event name `a_name'
 		require
 			Valid_Opcode: is_valid_opcode(a_opcode)
-			Dispatch_is_sequenced: a_opcode ~ Dispatch = attached a_sequence
-			Dispatch_is_named: a_opcode ~ Dispatch = attached a_name
+			Sequenced_iff_is_Dispatch: a_opcode ~ Dispatch = attached a_sequence
+			Named_iff_is_Dispatch: a_opcode ~ Dispatch = attached a_name
 		do
 			make(a_opcode, a_data)
 			sequence_number := a_sequence
@@ -52,16 +52,16 @@ feature -- Access
 
 	opcode: like Dispatch
 			-- The opcode representing which type of payload `Current' is
-			-- For a list of opcode, see https://discordapp.com/developers/docs/topics/gateway#gateway-opcodespayloads-gateway-opcodes
+			-- For a list of opcode, see {GATEWAY_OPCODES}
 
 	data: detachable ANY
 			-- The data contained in `Current' ("d" field in gateway payloads)
 
 	sequence_number: detachable NATURAL_64
-			-- The sequence number of the payload
+			-- The sequence number of the payload ("s" field in gateway payloads)
 
 	event_name: detachable READABLE_STRING_GENERAL
-			-- The name of the payload's event
+			-- The name of the payload's event ("t" field in gateway payloads)
 
 feature -- Type Checks
 

@@ -1,9 +1,9 @@
 note
 	description: "Proxy for a {USER}'s status to ensure a good value"
-	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-status-update-status-types"
 	author: "ZeLarpMaster"
 	date: "Fri, 3 Nov 2017 21:03:24 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-status-update-status-types"
 
 class
 	PRESENCE_STATUS
@@ -82,6 +82,7 @@ feature -- Basic Operations
 
 	is_valid_status(a_status: READABLE_STRING_GENERAL): BOOLEAN
 			-- Whether or not `a_status' is a valid status string
+			-- TODO: Make this static?
 		do
 			Result := (
 				a_status ~ Online or
@@ -127,29 +128,10 @@ feature {NONE} -- Implementation
 	status: READABLE_STRING_GENERAL
 			-- `Current's status
 
-	Online: READABLE_STRING_GENERAL
-		once("PROCESS")
-			Result := "online"
-		end
-
-	Do_not_disturb: READABLE_STRING_GENERAL
-		once("PROCESS")
-			Result := "dnd"
-		end
-
-	Idle: READABLE_STRING_GENERAL
-		once("PROCESS")
-			Result := "idle"
-		end
-
-	Invisible: READABLE_STRING_GENERAL
-		once("PROCESS")
-			Result := "invisible"
-		end
-
-	Offline: READABLE_STRING_GENERAL
-		once("PROCESS")
-			Result := "offline"
-		end
+	Online: STRING = "online"
+	Do_not_disturb: STRING = "dnd"
+	Idle: STRING = "idle"
+	Invisible: STRING = "invisible"
+	Offline: STRING = "offline"
 
 end

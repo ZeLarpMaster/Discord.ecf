@@ -33,6 +33,8 @@ feature -- Access
 			-- Sets the client transfered to models
 		do
 			client := a_client
+		ensure
+			Client_Set: client ~ a_client
 		end
 
 	encoding_name: READABLE_STRING_GENERAL
@@ -56,12 +58,21 @@ feature -- Gateway Models
 			-- Creates a {PRESENCE}
 		do
 			create Result.make(serializer, a_status, a_is_afk, a_game, a_idle_since)
+		ensure
+			Result_uses_Status: Result.status ~ a_status
+			Result_uses_Is_Afk: Result.is_afk ~ a_is_afk
+			Result_uses_Game: Result.game ~ a_game
+			Result_uses_Idle: Result.idle_since ~ a_idle_since
 		end
 
 	create_connection_properties(a_os, a_browser, a_device: READABLE_STRING_GENERAL): GATEWAY_CONNECTION_PROPERTIES
 			-- Creates a {GATEWAY_CONNECTION_PROPERTIES}
 		do
 			create Result.make(serializer, a_os, a_browser, a_device)
+		ensure
+			Result_uses_OS: Result.os_name ~ a_os
+			Result_uses_Browser: Result.browser_name ~ a_browser
+			Result_uses_Device: Result.device_name ~ a_device
 		end
 
 	create_identify_payload(a_token: READABLE_STRING_GENERAL; a_properties: GATEWAY_CONNECTION_PROPERTIES; a_compress: BOOLEAN;
@@ -73,12 +84,18 @@ feature -- Gateway Models
 			create l_identify.make(serializer, a_token, a_properties, a_compress, a_large_threshold, a_shard_number, a_presence)
 			l_identify.shard_id := a_shard_id
 			create Result.make(Identify, l_identify)
+		ensure
+			Result_is_Identify: Result.is_identify
+			Result_data_is_Identification_Structure: attached {IDENTIFICATION_STRUCTURE} Result.data
 		end
 
 	create_heartbeat_payload(a_sequence: NATURAL_64): GATEWAY_PAYLOAD
 			-- Creates a heartbeat {GATEWAY_PAYLOAD} with sequence number `a_sequence'
 		do
 			create Result.make(Heartbeat, a_sequence)
+		ensure
+			Result_is_Heartbeat: Result.is_heartbeat
+			Result_data_is_Sequence: Result.data ~ a_sequence
 		end
 
 	parse_gateway_message(a_message: STRING): detachable GATEWAY_PAYLOAD

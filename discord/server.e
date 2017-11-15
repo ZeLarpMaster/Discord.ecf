@@ -19,6 +19,10 @@ feature {NONE} -- Initialization
 			-- Initializes `Current' with `a_client' to interact with the API and `a_id' as the identifier
 		do
 			make_object(a_serializer, a_client, a_id)
+		ensure
+			Serializer_Set: serializer ~ a_serializer
+			Client_Set: client ~ a_client
+			Id_Set: id ~ a_id
 		end
 
 feature -- Basic Operations

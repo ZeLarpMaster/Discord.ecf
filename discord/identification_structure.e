@@ -3,6 +3,7 @@ note
 	author: "ZeLarpMaster"
 	date: "Mon, 6 Nov 2017 20:18:43 +0000"
 	revision: "0.0.1"
+	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-identify-gateway-identify-structure"
 
 class
 	IDENTIFICATION_STRUCTURE
@@ -17,7 +18,10 @@ feature {NONE} -- Initialization
 
 	make(a_serializer: SERIALIZER; a_token: READABLE_STRING_GENERAL; a_properties: GATEWAY_CONNECTION_PROPERTIES;
 		 a_compress: BOOLEAN; a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: PRESENCE)
-			-- Initializes `Current' to be serialized with `a_serializer'
+			-- Initializes `Current' to be serialized with `a_serializer' and to contain the given data
+		require
+			Token_Not_Empty: not a_token.is_empty
+			Shard_Number_Not_Null: a_shard_number > 0
 		do
 			make_serializable(a_serializer)
 			token := a_token
@@ -27,6 +31,7 @@ feature {NONE} -- Initialization
 			shard_number := a_shard_number
 			presence := a_presence
 		ensure
+			Serializer_Set: serializer ~ a_serializer
 			Token_Set: token ~ a_token
 			Properties_Set: properties ~ a_properties
 			Compress_Set: compress ~ a_compress

@@ -91,4 +91,6 @@ feature {NONE} -- Implementation
 			create {SERIALIZER_JSON} serializer
 		end
 
+invariant
+	Serializer_is_JSON: attached {SERIALIZER_JSON} serializer
 end

@@ -10,11 +10,6 @@ deferred class
 inherit
 	SERIALIZABLE
 
-feature -- Access
-
-	id: READABLE_STRING_GENERAL
-			-- The id of `Current'
-
 feature {NONE} -- Initialization
 
 	make_object(a_serializer: SERIALIZER; a_client: CLIENT; a_id: READABLE_STRING_GENERAL)
@@ -23,9 +18,16 @@ feature {NONE} -- Initialization
 			make_serializable(a_serializer)
 			client := a_client
 			id := a_id
+		ensure
+			Serializer_Set: serializer ~ a_serializer
+			Client_Set: client ~ a_client
+			Id_Set: id ~ a_id
 		end
 
 feature -- Access
+
+	id: READABLE_STRING_GENERAL
+			-- The id of `Current'
 
 	has_error: BOOLEAN
 			-- Whether or not `Current' had an error during initialization
