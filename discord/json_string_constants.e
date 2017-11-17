@@ -142,4 +142,10 @@ feature -- Access
 			create Result.make_from_string_general("game")
 		end
 
+	json_string_shards: JSON_STRING
+			-- {JSON_STRING} of "shards"
+		once("PROCESS")
+			create Result.make_from_string_general("shards")
+		end
+
 end

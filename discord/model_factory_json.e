@@ -27,6 +27,26 @@ feature -- REST Models
 			end
 		end
 
+feature -- Other REST Responses
+
+	parse_gateway_info(a_response: STRING): TUPLE[url: STRING_8; shard_count: NATURAL_64]
+			-- <Precursor>
+		local
+			l_parser: JSON_PARSER
+		do
+			create Result
+			create l_parser.make_with_string(a_response)
+			l_parser.parse_content
+			if attached {JSON_OBJECT} l_parser.parsed_json_value as la_json then
+				if attached {JSON_STRING} la_json.item(json_string_url) as la_url then
+					Result.url := la_url.item
+				end
+				if attached {JSON_NUMBER} la_json.item(json_string_shards) as la_shards then
+					Result.shard_count := la_shards.natural_64_item
+				end
+			end
+		end
+
 feature -- Gateway Models
 
 	parse_gateway_message(a_message: STRING): detachable GATEWAY_PAYLOAD

@@ -52,6 +52,13 @@ feature -- REST Models
 		deferred
 		end
 
+feature -- Miscellaneous REST Responses
+
+	parse_gateway_info(a_response: STRING): TUPLE[a_url: STRING_8; a_shard_count: NATURAL_64]
+			-- Parses the answer from a /gateway/bot request
+		deferred
+		end
+
 feature -- Gateway Models
 
 	create_presence(a_status: PRESENCE_STATUS; a_is_afk: BOOLEAN; a_game: detachable GAME_STATUS; a_idle_since: detachable DATE_TIME): PRESENCE

@@ -36,21 +36,13 @@ feature -- Basic Operations
 			Authentified: is_authentified
 		local
 			l_response: HTTP_CLIENT_RESPONSE
-			l_json_parser: JSON_PARSER
+			l_infos: TUPLE[url: STRING_8; shard_count: NATURAL_64]
 		do
 			l_response := rest_session.get("/gateway/bot", Void)
 			if attached l_response.body as la_body then
-				create l_json_parser.make_with_string(la_body)
-				l_json_parser.parse_content
-				if
-					-- TODO: Move those things into the factory cause they don't belong here
-					attached {JSON_OBJECT} l_json_parser.parsed_json_value as la_json and then
-					attached {JSON_STRING} la_json.item("url") as la_url and then
-					attached {JSON_NUMBER} la_json.item("shards") as la_shards
-				then
-					last_gateway_url := la_url.item
-					create last_suggested_shards.put(la_shards.natural_64_item)
-				end
+				l_infos := config.factory.parse_gateway_info(la_body)
+				last_gateway_url := l_infos.url
+				create last_suggested_shards.put(l_infos.shard_count)
 			end
 		end
 
