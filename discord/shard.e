@@ -15,6 +15,7 @@ feature {NONE} -- Initialization
 	make(a_config: CLIENT_CONFIG; a_url: READABLE_STRING_GENERAL; a_shard_id: NATURAL_64)
 			-- Initializes `Current' to connect to `a_url' with `a_config' as the shard # `a_shard_id'
 		do
+			create ready_actions.default_create
 			create socket.make(a_url + a_config.gateway_parameters)
 			last_ping := 0
 			config := a_config
@@ -46,6 +47,9 @@ feature -- Access
 
 	shard_id: NATURAL_64
 			-- The id of `Current'
+
+	ready_actions: ACTION_SEQUENCE[TUPLE]
+			-- The actions to execute for ready events
 
 feature {NONE} -- Gateway Actions
 
@@ -80,6 +84,12 @@ feature {NONE} -- Socket Events
 			if attached l_payload as la_payload then
 				if la_payload.is_dispatch then
 					-- Parse event type and underlying models
+					if attached la_payload.sequence_number as la_sequence_number then
+						last_sequence_number := la_sequence_number.item
+					end
+					if attached la_payload.event_name as la_event_name then
+						dispatch_event(create {USER_EVENT}.make(la_event_name, la_payload.data))
+					end
 				elseif la_payload.is_heartbeat then
 					send_heartbeat
 				elseif la_payload.is_heartbeat_ack and attached last_heartbeat_time as la_last_time then
@@ -118,6 +128,31 @@ feature {NONE} -- Socket Events
 			-- Called when `socket' is closed
 		do
 			print("The gateway has closed with code " + a_code.out + ": " + a_reason + "%N")
+		end
+
+feature {NONE} -- User Events
+
+	dispatch_event(a_event: USER_EVENT)
+			-- Dispatches the received event.
+		do
+			if a_event.is_ready then
+				ready(a_event)
+			end
+		end
+
+	ready(a_data: detachable ANY)
+			-- Handles a ready event.
+		local
+			l_user: detachable USER
+		do
+			if attached a_data as la_data then
+				-- Parse elements from la_data and pass them to.call()
+				l_user := config.factory.create_user(la_data)
+				if attached l_user as la_user then
+					ready_actions.call(la_user, config.factory.create_channel_list(la_data))
+				end
+
+			end
 		end
 
 feature {NONE} -- Implementation

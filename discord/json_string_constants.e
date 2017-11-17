@@ -148,4 +148,130 @@ feature -- Access
 			create Result.make_from_string_general("shards")
 		end
 
+	json_string_guild_id: JSON_STRING
+			-- {JSON_STRING} of "guild_id"
+		once("PROCESS")
+			create Result.make_from_string_general("guild_id")
+		end
+
+	json_string_position: JSON_STRING
+			-- {JSON_STRING} of "position"
+		once("PROCESS")
+			create Result.make_from_string_general("position")
+		end
+
+	json_string_permission_overwrites: JSON_STRING
+			-- {JSON_STRING} of "permission_overwrites"
+		once("PROCESS")
+			create Result.make_from_string_general("permission_overwrites")
+		end
+
+	json_string_topic: JSON_STRING
+			-- {JSON_STRING} of "topic"
+		once("PROCESS")
+			create Result.make_from_string_general("topic")
+		end
+
+	json_string_nsfw: JSON_STRING
+			-- {JSON_STRING} of "nsfw"
+		once("PROCESS")
+			create Result.make_from_string_general("nsfw")
+		end
+
+	json_string_last_message_id: JSON_STRING
+			-- {JSON_STRING} of "last_message_id"
+		once("PROCESS")
+			create Result.make_from_string_general("last_message_id")
+		end
+
+	json_string_bitrate: JSON_STRING
+			-- {JSON_STRING} of "bitrate"
+		once("PROCESS")
+			create Result.make_from_string_general("bitrate")
+		end
+
+	json_string_user_limit: JSON_STRING
+			-- {JSON_STRING} of "user_limit"
+		once("PROCESS")
+			create Result.make_from_string_general("user_limit")
+		end
+
+	json_string_recipients: JSON_STRING
+			-- {JSON_STRING} of "recipients"
+		once("PROCESS")
+			create Result.make_from_string_general("recipients")
+		end
+
+	json_string_icon: JSON_STRING
+			-- {JSON_STRING} of "icon"
+		once("PROCESS")
+			create Result.make_from_string_general("icon")
+		end
+
+	json_string_owner_id: JSON_STRING
+			-- {JSON_STRING} of "owner_id"
+		once("PROCESS")
+			create Result.make_from_string_general("owner_id")
+		end
+
+	json_string_application_id: JSON_STRING
+			-- {JSON_STRING} of "application_id"
+		once("PROCESS")
+			create Result.make_from_string_general("application_id")
+		end
+
+	json_string_parent_id: JSON_STRING
+			-- {JSON_STRING} of "parent_id"
+		once("PROCESS")
+			create Result.make_from_string_general("parent_id")
+		end
+
+	json_string_private_channels: JSON_STRING
+			--{JSON_STRING} of "private_channels"
+		once("PROCESS")
+			create Result.make_from_string_general("private_channels")
+		end
+
+	json_string_username: JSON_STRING
+			-- {JSON_STRING} of "username"
+		once("PROCESS")
+			create Result.make_from_string_general("username")
+		end
+
+	json_string_discriminator: JSON_STRING
+			-- {JSON_STRING} of "discriminator"
+		once("PROCESS")
+			create Result.make_from_string_general("discriminator")
+		end
+
+	json_string_avatar: JSON_STRING
+			-- {JSON_STRING} of "avatar"
+		once("PROCESS")
+			create Result.make_from_string_general("avatar")
+		end
+
+	json_string_bot: JSON_STRING
+			-- {JSON_STRING} of "bot"
+		once("PROCESS")
+			create Result.make_from_string_general("bot")
+		end
+
+	json_string_mfa_enabled: JSON_STRING
+			-- {JSON_STRING} of "mfa_enabled"
+		once("PROCESS")
+			create Result.make_from_string_general("mfa_enabled")
+		end
+
+	json_string_verified: JSON_STRING
+			-- {JSON_STRING} of "verified"
+		once("PROCESS")
+			create Result.make_from_string_general("verified")
+		end
+
+	json_string_email: JSON_STRING
+			-- {JSON_STRING} of "email"
+		once("PROCESS")
+			create Result.make_from_string_general("email")
+		end
+
 end

@@ -27,6 +27,100 @@ feature -- REST Models
 			end
 		end
 
+	create_user(a_data: JSON_OBJECT): detachable USER
+			-- <Precursor>
+		do
+			if
+				attached {JSON_STRING} a_data.item(json_string_id) as la_id and
+				attached {JSON_STRING} a_data.item(json_string_username) as la_username and
+				attached {JSON_STRING} a_data.item(json_string_discriminator) as la_discriminator and
+				attached {JSON_STRING} a_data.item(json_string_avatar) as la_avatar and
+				attached client as la_client
+			then
+				create Result.make(serializer, la_client, la_id.item, la_username.item, la_discriminator.item, la_avatar.item)
+
+				if attached {JSON_BOOLEAN} a_data.item(json_string_bot) as la_bot then
+					Result.is_bot := la_bot.item
+				end
+				if attached {JSON_BOOLEAN} a_data.item(json_string_mfa_enabled) as la_mfa_enabled then
+					Result.is_mfa_enabled := la_mfa_enabled.item
+				end
+				if attached {JSON_BOOLEAN} a_data.item(json_string_verified) as la_verified then
+					Result.is_verified := la_verified.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_email) as la_email then
+					Result.email := la_email.item
+				end
+
+			end
+		end
+
+		create_channel(a_data: JSON_OBJECT): detachable CHANNEL
+			-- <Precursor>
+		do
+			if
+				attached {JSON_STRING} a_data.item(json_string_id) as la_id and
+				attached {JSON_NUMBER} a_data.item(json_string_type) as la_type and
+				attached client as la_client
+			then
+				create Result.make(serializer, la_client, la_id.item, la_type.integer_64_item)
+
+				-- STILL NEED TO CHECK FOR RECIPIENTS AND PERMISSION_OVERWRITES (LIST)
+
+				if attached {JSON_NUMBER} a_data.item(json_string_position) as la_position then
+					Result.position := la_position.integer_64_item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_name) as la_name then
+					Result.name := la_name.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_topic) as la_topic then
+					Result.topic := la_topic.item
+				end
+				if attached {JSON_BOOLEAN} a_data.item(json_string_nsfw) as la_nsfw then
+					Result.nsfw := la_nsfw.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_last_message_id) as la_last_message_id then
+					Result.last_message_id := la_last_message_id.item
+				end
+				if attached {JSON_NUMBER} a_data.item(json_string_bitrate) as la_bitrate then
+					Result.bitrate := la_bitrate.integer_64_item
+				end
+				if attached {JSON_NUMBER} a_data.item(json_string_user_limit) as la_user_limit then
+					Result.user_limit := la_user_limit.integer_64_item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_icon) as la_icon then
+					Result.icon := la_icon.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_owner_id) as la_owner_id then
+					Result.owner_id := la_owner_id.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_application_id) as la_application_id then
+					Result.application_id := la_application_id.item
+				end
+				if attached {JSON_STRING} a_data.item(json_string_parent_id) as la_parent_id then
+					Result.parent_id := la_parent_id.item
+				end
+			end
+		end
+
+		create_channel_list(a_data: JSON_OBJECT): LIST[CHANNEL]
+			-- <Precursor>
+		do
+			Result := create {LINKED_LIST[CHANNEL]}.make
+			if attached {JSON_ARRAY} a_data.item(json_string_private_channels) as la_data then
+				across
+					la_data.array_representation as item
+				loop
+					if attached {JSON_OBJECT} item as la_item then
+						if attached {CHANNEL} create_channel(la_item) as la_channel then
+							Result.put(la_channel)
+						end
+					end
+				end
+			end
+		end
+
+
 feature -- Other REST Responses
 
 	parse_gateway_info(a_response: STRING): TUPLE[url: STRING_8; shard_count: NATURAL_64]

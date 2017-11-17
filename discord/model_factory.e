@@ -45,10 +45,31 @@ feature -- Access
 feature -- REST Models
 
 	create_server(a_data: ANY): detachable SERVER
-			-- Creates a server using the information in `a_data'
-			-- The result will be detached if the data does not correspond to a server
+			-- Creates a {SERVER} using the information in `a_data'
+			-- The result will be detached if the data does not correspond to a {SERVER}
 		require
 			Client_Set: has_client
+		deferred
+		end
+
+	create_user(a_data: ANY): detachable USER
+			-- Creates a {USER} using the information in `a_data'
+			-- The result will be detached if the data does not correspond to a {USER}
+		require
+			Client_Set: has_client
+		deferred
+		end
+
+	create_channel(a_data: ANY): detachable CHANNEL
+			-- Creates a {CHANNEL} using the information in `a_data'
+			-- The result will be detached if the data does not correspond to a {CHANNEL}
+		require
+			Client_Set: has_client
+		deferred
+		end
+
+	create_channel_list(a_data: ANY): LIST[CHANNEL]
+			-- Creates a list of {CHANNEL} using the information in `a_data'
 		deferred
 		end
 

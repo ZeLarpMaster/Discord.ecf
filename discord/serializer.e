@@ -14,6 +14,16 @@ feature -- REST Models
 		deferred
 		end
 
+	serialize_user(a_user: USER): ANY
+			-- Serializes `a_user'
+		deferred
+		end
+
+	serialize_channel(a_channel: CHANNEL): ANY
+			-- Serializes `a_channel'
+		deferred
+		end
+
 feature -- Gateway Models
 
 	serialize_payload(a_payload: GATEWAY_PAYLOAD): STRING_8

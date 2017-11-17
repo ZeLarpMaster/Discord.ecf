@@ -24,6 +24,20 @@ feature -- REST Models
 			Result.put_string(a_server.id, json_string_id)
 		end
 
+	serialize_user(a_user: USER): JSON_OBJECT
+			-- <Precursor>
+		do
+			create Result.make_with_capacity(1)
+			Result.put_string(a_user.id, json_string_id)
+		end
+
+	serialize_channel(a_channel: CHANNEL): JSON_OBJECT
+			-- <Precursor>
+		do
+			create Result.make_with_capacity(1)
+			Result.put_string(a_channel.id, json_string_id)
+		end
+
 feature -- Gateway Models
 
 	serialize_payload(a_payload: GATEWAY_PAYLOAD): STRING_8
