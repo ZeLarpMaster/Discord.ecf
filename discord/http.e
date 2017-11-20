@@ -8,7 +8,8 @@ class
 	HTTP
 
 create
-	make
+	make,
+	make_with_token
 
 feature {NONE} -- Initialization
 
@@ -20,6 +21,16 @@ feature {NONE} -- Initialization
 			rest_session.add_header("user-agent", "DiscordBot (" + config.library_url + ", v" + config.library_version + ")")
 		ensure
 			Config_Assigned: config ~ a_config
+		end
+
+	make_with_token(a_config: CLIENT_CONFIG)
+			-- Initializes `Current' using `a_config' and sets the `auth_token'
+		do
+			make(a_config)
+			set_token(a_config.token)
+		ensure
+			Config_Assigned: config ~ a_config
+			Authentified: is_authentified
 		end
 
 feature -- Basic Operations

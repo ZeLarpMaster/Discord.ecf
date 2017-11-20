@@ -16,7 +16,7 @@ feature {NONE} -- Initialization
 			-- Initializes `Current' with `a_factory' to deserialize models
 		do
 			create config.make("a token", a_factory)
-			create http.make(config)
+			create http.make_with_token(config)
 			create {ARRAYED_LIST[SHARD]} shards.make(1)
 			a_factory.set_client(Current)
 		ensure
