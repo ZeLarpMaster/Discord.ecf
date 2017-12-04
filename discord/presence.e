@@ -39,7 +39,7 @@ feature -- Access
 			-- The {USER}'s status
 
 	is_afk: BOOLEAN
-			-- Whether or not the {USER} is afk
+			-- `True' when the {USER} is afk
 
 	game: detachable GAME_STATUS
 			-- The {USER}'s new game activity

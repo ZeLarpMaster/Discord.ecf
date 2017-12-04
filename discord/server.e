@@ -15,7 +15,7 @@ create {MODEL_FACTORY}
 
 feature {NONE} -- Initialization
 
-	make(a_serializer: SERIALIZER; a_client: CLIENT; a_id: READABLE_STRING_GENERAL)
+	make(a_serializer: SERIALIZER; a_client: DISCORD_CLIENT; a_id: READABLE_STRING_GENERAL)
 			-- Initializes `Current' with `a_client' to interact with the API and `a_id' as the identifier
 		do
 			make_object(a_serializer, a_client, a_id)

@@ -12,7 +12,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make(a_config: CLIENT_CONFIG; a_url: READABLE_STRING_GENERAL; a_shard_id: NATURAL_64)
+	make(a_config: CLIENT_CONFIGURATION; a_url: READABLE_STRING_GENERAL; a_shard_id: NATURAL_64)
 			-- Initializes `Current' to connect to `a_url' with `a_config' as the shard # `a_shard_id'
 		do
 			create socket.make(a_url + a_config.gateway_parameters)
@@ -52,7 +52,7 @@ feature {NONE} -- Gateway Actions
 	send_identify(a_shard_number: NATURAL_64)
 			-- Identifies `Current' on the gateway
 		do
-			socket.send(config.factory.serializer.serialize_payload(config.create_identify_payload(shard_id, a_shard_number)))
+			socket.send(config.factory.serializer.serialize_payload(config.new_identify_payload(shard_id, a_shard_number)))
 		end
 
 	send_heartbeat
@@ -131,7 +131,7 @@ feature {NONE} -- Implementation
 	socket: GATEWAY_SOCKET
 			-- Socket connection to the Discord gateway
 
-	config: CLIENT_CONFIG
+	config: CLIENT_CONFIGURATION
 			-- General configurations of this application
 
 	last_heartbeat_time: detachable DATE_TIME

@@ -57,17 +57,17 @@ feature {NONE} -- Implementation
 			-- Analyze messages extracted from `socket' as a HTTP request
 			-- See https://github.com/tioui/Eiffel_Discord_POC/blob/master/discord_web_socket.e for more information
 		local
-			end_of_stream: BOOLEAN
-			pos, n: INTEGER
-			line: detachable STRING
-			k, val: STRING
-			txt: STRING
+			l_end_of_stream: BOOLEAN
+			l_pos, l_n: INTEGER
+			l_line: detachable STRING
+			l_k, l_val: STRING
+			l_txt: STRING
 		do
-			create txt.make (64)
-			server_handshake.set_request_header (txt)
+			create l_txt.make (64)
+			server_handshake.set_request_header (l_txt)
 			if attached next_line as l_request_line and then not l_request_line.is_empty then
-				txt.append (l_request_line)
-				txt.append_character ('%N')
+				l_txt.append (l_request_line)
+				l_txt.append_character ('%N')
 			else
 				server_handshake.mark_error
 			end
@@ -75,32 +75,32 @@ feature {NONE} -- Implementation
 			if not server_handshake.has_error then -- or l_is_verbose then
 					-- if `is_verbose' we can try to print the request, even if it is a bad HTTP request
 				from
-					line := next_line
+					l_line := next_line
 				until
-					line = Void or end_of_stream
+					l_line = Void or l_end_of_stream
 				loop
-					n := line.count
+					l_n := l_line.count
 						--					if l_is_verbose then
-						--						log (line)
+						--						log (l_line)
 						--					end
-					pos := line.index_of (':', 1)
-					if pos > 0 then
-						k := line.substring (1, pos - 1)
-						if line [pos + 1].is_space then
-							pos := pos + 1
+					l_pos := l_line.index_of (':', 1)
+					if l_pos > 0 then
+						l_k := l_line.substring (1, l_pos - 1)
+						if l_line [l_pos + 1].is_space then
+							l_pos := l_pos + 1
 						end
-						if line [n] = '%R' then
-							n := n - 1
+						if l_line [l_n] = '%R' then
+							l_n := l_n - 1
 						end
-						val := line.substring (pos + 1, n)
-						server_handshake.put_header (k.as_lower, val)
+						l_val := l_line.substring (l_pos + 1, l_n)
+						server_handshake.put_header (l_k.as_lower, l_val)
 					end
-					txt.append (line)
-					txt.append_character ('%N')
-					if line.is_empty or else line [1] = '%R' then
-						end_of_stream := True
+					l_txt.append (l_line)
+					l_txt.append_character ('%N')
+					if l_line.is_empty or else l_line [1] = '%R' then
+						l_end_of_stream := True
 					else
-						line := next_line
+						l_line := next_line
 					end
 				end
 			end

@@ -77,7 +77,7 @@ feature -- Access
 			-- Properties of the current gateway connection
 
 	compress: BOOLEAN
-			-- Whether or not the current gateway connection is compressed
+			-- `True' when the current gateway connection is compressed
 
 	large_threshold: NATURAL_8
 			-- The number of {MEMBER}s in a {SERVER} before Discord stops sending us offline {MEMBER}s

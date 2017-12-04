@@ -32,12 +32,12 @@ feature {NONE} -- Initialization
 		end
 
 	make_playing(a_serializer: SERIALIZER; a_name: READABLE_STRING_GENERAL)
-			-- Initializes `Current' to be serialized with `a_serializer' as a `Playing' status
+			-- Initializes `Current' to be serialized with `a_serializer' as a `Playing_type' status
 		require
 			Name_Not_Empty: not a_name.is_empty
 		do
 			make(a_serializer, a_name, create {STRING_8}.make_empty)
-			type := Playing
+			type := Playing_type
 		ensure
 			Serializer_Set: serializer ~ a_serializer
 			Name_Set: name ~ a_name
@@ -46,13 +46,13 @@ feature {NONE} -- Initialization
 		end
 
 	make_streaming(a_serializer: SERIALIZER; a_name, a_url: READABLE_STRING_GENERAL)
-			-- Initializes `Current' to be serialized with `a_serializer' as a `Streaming' status
+			-- Initializes `Current' to be serialized with `a_serializer' as a `Streaming_type' status
 		require
 			Name_Not_Empty: not a_name.is_empty
 			Url_Is_Twitch: a_url.is_empty or a_url.starts_with("https://twitch.tv/")
 		do
 			make(a_serializer, a_name, a_url)
-			type := Streaming
+			type := Streaming_type
 		ensure
 			Serializer_Set: serializer ~ a_serializer
 			Name_Set: name ~ a_name
@@ -63,21 +63,21 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	name: READABLE_STRING_GENERAL
-			-- The status' name
+			-- The name of `Current'
 
 	url: READABLE_STRING_GENERAL
 			-- The stream url, is validated when type is 1, only `https://twitch.tv/` urls currently work.
 
 	is_playing: BOOLEAN
-			-- Whether or not `Current' is a playing status
+			-- `True' when `Current' is a playing status
 		do
-			Result := type ~ Playing
+			Result := type ~ Playing_type
 		end
 
 	is_streaming: BOOLEAN
-			-- Whether or not `Current' is a streaming status
+			-- `True' when `Current' is a streaming status
 		do
-			Result := type ~ Streaming
+			Result := type ~ Streaming_type
 		end
 
 feature -- Basic Operations
@@ -95,11 +95,11 @@ feature {NONE} -- Implementation
 
 feature {NONE} -- Type Constants
 
-	Playing: like type = 0
-			-- Playing `name'
+	Playing_type: like type = 0
+			-- Type of `Current' when Playing `name'
 
-	Streaming: like type = 1
-			-- Stremaing `name'
+	Streaming_type: like type = 1
+			-- Type of `Current' when Streaming `name'
 
 invariant
 	Playing_Has_No_Url: is_playing implies url.is_empty

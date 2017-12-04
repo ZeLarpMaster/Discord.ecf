@@ -52,7 +52,7 @@ feature -- Basic Operations
 feature {NONE} -- Implementation
 
 	must_stop: BOOLEAN
-			-- Whether or not `Current' should stop running
+			-- `True' when `Current' should stop running
 
 	interval: NATURAL_64
 			-- Number of seconds in between each call of `routine'

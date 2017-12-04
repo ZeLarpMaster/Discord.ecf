@@ -35,13 +35,13 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	os_name: READABLE_STRING_GENERAL
-			-- The current application's OS name
+			-- The application's OS name
 
 	browser_name: READABLE_STRING_GENERAL
-			-- The current application's browser name
+			-- The application's browser name
 
 	device_name: READABLE_STRING_GENERAL
-			-- The current application's device name
+			-- The application's device name
 
 feature -- Basic Operations
 

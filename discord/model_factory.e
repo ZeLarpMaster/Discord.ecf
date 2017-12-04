@@ -24,12 +24,12 @@ feature -- Access
 			-- The {SERIALIZER} passed down to created models
 
 	has_client: BOOLEAN
-			-- Whether or not `Current's client has been set
+			-- `True' when `Current's client has been set
 		do
 			Result := attached client
 		end
 
-	set_client(a_client: CLIENT)
+	set_client(a_client: DISCORD_CLIENT)
 			-- Sets the client transfered to models
 		do
 			client := a_client
@@ -134,7 +134,7 @@ feature {NONE} -- Implementation
 		deferred
 		end
 
-	client: detachable CLIENT
-			-- The {CLIENT} passed down to created models
+	client: detachable DISCORD_CLIENT
+			-- The {DISCORD_CLIENT} passed down to created models
 
 end

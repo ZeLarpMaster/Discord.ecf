@@ -11,7 +11,7 @@ class
 feature -- Basic Operations
 
 	is_valid_opcode(a_opcode: like Dispatch): BOOLEAN
-			-- Checks whether or not an arbitrary opcode is valid
+			-- `True' when an arbitrary `a_opcode' is valid
 		do
 			Result := Dispatch <= a_opcode and a_opcode <= Heartbeat_ack
 		ensure

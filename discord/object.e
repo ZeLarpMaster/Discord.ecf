@@ -12,7 +12,7 @@ inherit
 
 feature {NONE} -- Initialization
 
-	make_object(a_serializer: SERIALIZER; a_client: CLIENT; a_id: READABLE_STRING_GENERAL)
+	make_object(a_serializer: SERIALIZER; a_client: DISCORD_CLIENT; a_id: READABLE_STRING_GENERAL)
 			-- Initializes a basic object
 		do
 			make_serializable(a_serializer)
@@ -30,11 +30,11 @@ feature -- Access
 			-- The id of `Current'
 
 	has_error: BOOLEAN
-			-- Whether or not `Current' had an error during initialization
+			-- `True' when `Current' had an error during initialization
 
 feature {NONE} -- Implementation
 
-	client: CLIENT
+	client: DISCORD_CLIENT
 			-- API used for the various API calls made in the objects
 
 end

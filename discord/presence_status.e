@@ -81,7 +81,7 @@ feature -- Access
 feature -- Basic Operations
 
 	is_valid_status(a_status: READABLE_STRING_GENERAL): BOOLEAN
-			-- Whether or not `a_status' is a valid status string
+			-- `True' when `a_status' is a valid status string
 			-- TODO: Make this static?
 		do
 			Result := (
@@ -94,31 +94,31 @@ feature -- Basic Operations
 		end
 
 	is_online: BOOLEAN
-			-- Whether or not `Current' is `Online'
+			-- `True' when `Current' is `Online'
 		do
 			Result := status ~ Online
 		end
 
 	is_dnd: BOOLEAN
-			-- Whether or not `Current' is `Do_not_disturb'
+			-- `True' when `Current' is `Do_not_disturb'
 		do
 			Result := status ~ Do_not_disturb
 		end
 
 	is_idle: BOOLEAN
-			-- Whether or not `Current' is `Idle'
+			-- `True' when `Current' is `Idle'
 		do
 			Result := status ~ Idle
 		end
 
 	is_invisible: BOOLEAN
-			-- Whether or not `Current' is `Invisible'
+			-- `True' when `Current' is `Invisible'
 		do
 			Result := status ~ Invisible
 		end
 
 	is_offline: BOOLEAN
-			-- Whether or not `Current' is `Offline'
+			-- `True' when `Current' is `Offline'
 		do
 			Result := status ~ Offline
 		end

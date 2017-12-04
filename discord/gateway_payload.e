@@ -18,7 +18,7 @@ create
 feature {NONE} -- Initialization
 
 	make(a_opcode: like Dispatch; a_data: detachable ANY)
-			-- Initializes `Current' with variable data contents `a_data' as a payload with opcode `a_opcode'
+			-- Initializes `Current' with variable `data' contents `a_data' as a payload with `opcode' `a_opcode'
 		require
 			Valid_Opcode: is_valid_opcode(a_opcode)
 		do
@@ -63,82 +63,82 @@ feature -- Access
 	event_name: detachable READABLE_STRING_GENERAL
 			-- The name of the payload's event ("t" field in gateway payloads)
 
-feature -- Type Checks
+feature -- Status Report
 
 	can_be_sent: BOOLEAN
-			-- Whether or not `Current' is a payload which can be sent
+			-- `True' when `Current' is a payload which can be sent
 		do
 			Result := is_heartbeat or is_identify or is_status_update or is_voice_state_update or is_voice_server_ping or is_resume or is_request_guild_members
 		end
 
 	is_dispatch: BOOLEAN
-			-- Whether or not `Current' is a `Dispatch' payload
+			-- `True' when `Current' is a `Dispatch' payload
 		do
 			Result := opcode ~ Dispatch
 		end
 
 	is_heartbeat: BOOLEAN
-			-- Whether or not `Current' is a `Heartbeat' payload
+			-- `True' when `Current' is a `Heartbeat' payload
 		do
 			Result := opcode ~ Heartbeat
 		end
 
 	is_identify: BOOLEAN
-			-- Whether or not `Current' is a `Identify' payload
+			-- `True' when `Current' is a `Identify' payload
 		do
 			Result := opcode ~ Identify
 		end
 
 	is_status_update: BOOLEAN
-			-- Whether or not `Current' is a `Status_update' payload
+			-- `True' when `Current' is a `Status_update' payload
 		do
 			Result := opcode ~ Status_update
 		end
 
 	is_voice_state_update: BOOLEAN
-			-- Whether or not `Current' is a `Voice_state_update' payload
+			-- `True' when `Current' is a `Voice_state_update' payload
 		do
 			Result := opcode ~ Voice_state_update
 		end
 
 	is_voice_server_ping: BOOLEAN
-			-- Whether or not `Current' is a `Voice_server_ping' payload
+			-- `True' when `Current' is a `Voice_server_ping' payload
 		do
 			Result := opcode ~ Voice_server_ping
 		end
 
 	is_resume: BOOLEAN
-			-- Whether or not `Current' is a `Resume' payload
+			-- `True' when `Current' is a `Resume' payload
 		do
 			Result := opcode ~ Resume
 		end
 
 	is_reconnect: BOOLEAN
-			-- Whether or not `Current' is a `Reconnect' payload
+			-- `True' when `Current' is a `Reconnect' payload
 		do
 			Result := opcode ~ Reconnect
 		end
 
 	is_request_guild_members: BOOLEAN
-			-- Whether or not `Current' is a `Request_guild_members' payload
+			-- `True' when `Current' is a `Request_guild_members' payload
 		do
 			Result := opcode ~ Request_guild_members
 		end
 
 	is_invalid_session: BOOLEAN
-			-- Whether or not `Current' is a `Invalid_session' payload
+			-- `True' when `Current' is a `Invalid_session' payload
 		do
 			Result := opcode ~ Invalid_session
 		end
 
 	is_hello: BOOLEAN
-			-- Whether or not `Current' is a `Hello' payload
+			-- `True' when `Current' is a `Hello' payload
 		do
 			Result := opcode ~ Hello
 		end
 
 	is_heartbeat_ack: BOOLEAN
-			-- Whether or not `Current' is a `Heartbeat_ack' payload
+			-- `True' when `Current' is a `Heartbeat_ack' payload
 		do
 			Result := opcode ~ Heartbeat_ack
 		end
