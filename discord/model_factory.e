@@ -30,7 +30,7 @@ feature -- Access
 		end
 
 	set_client(a_client: DISCORD_CLIENT)
-			-- Sets the client transfered to models
+			-- Sets the `client' transfered to models with `a_client'
 		do
 			client := a_client
 		ensure
@@ -61,8 +61,8 @@ feature -- Miscellaneous REST Responses
 
 feature -- Gateway Models
 
-	create_presence(a_status: PRESENCE_STATUS; a_is_afk: BOOLEAN; a_game: detachable GAME_STATUS; a_idle_since: detachable DATE_TIME): PRESENCE
-			-- Creates a {PRESENCE}
+	create_presence(a_status: PRESENCE_STATUS; a_is_afk: BOOLEAN; a_game: detachable GAME_STATUS; a_idle_since: detachable DATE_TIME): USER_PRESENCE
+			-- Creates a {USER_PRESENCE} with `status' `a_status', `is_afk' `a_is_afk', `game' `a_game', and `idle_since' `a_idle_since'
 		do
 			create Result.make(serializer, a_status, a_is_afk, a_game, a_idle_since)
 		ensure
@@ -73,7 +73,7 @@ feature -- Gateway Models
 		end
 
 	create_connection_properties(a_os, a_browser, a_device: READABLE_STRING_GENERAL): GATEWAY_CONNECTION_PROPERTIES
-			-- Creates a {GATEWAY_CONNECTION_PROPERTIES}
+			-- Creates a {GATEWAY_CONNECTION_PROPERTIES} with `os_name' `a_os', `browser_name' `a_browser', and `device_name' `a_device'
 		do
 			create Result.make(serializer, a_os, a_browser, a_device)
 		ensure
@@ -83,8 +83,10 @@ feature -- Gateway Models
 		end
 
 	create_identify_payload(a_token: READABLE_STRING_GENERAL; a_properties: GATEWAY_CONNECTION_PROPERTIES; a_compress: BOOLEAN;
-							a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: PRESENCE; a_shard_id: NATURAL_64): GATEWAY_PAYLOAD
-			-- Creates an identify {GATEWAY_PAYLOAD}
+							a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: USER_PRESENCE; a_shard_id: NATURAL_64): GATEWAY_PAYLOAD
+			-- Creates an identify {GATEWAY_PAYLOAD} with `token' `a_token', `properties' `a_properties', `compress' `a_compress',
+			-- 	 `large_threshold' `a_large_threshold', `shard_number' `a_shard_number', `presence' `a_presence', and `shard_id' `a_shard_id'
+			-- inside an {IDENTIFICATION_STRUCTURE} as it's `data'
 		local
 			l_identify: IDENTIFICATION_STRUCTURE
 		do
@@ -121,7 +123,7 @@ feature -- Gateway Models
 
 	parse_invalid_session_data(a_payload: GATEWAY_PAYLOAD): BOOLEAN
 			-- Parses the resuming boolean from an invalid_session {GATEWAY_PAYLOAD}
-			-- The result will be detached if the data does not correspond to a gateway payload
+			-- The `Result' will be detached if the data does not correspond to a gateway payload
 		require
 			Payload_Is_Invalid_Session: a_payload.is_invalid_session
 		deferred

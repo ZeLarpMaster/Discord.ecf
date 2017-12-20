@@ -52,7 +52,7 @@ feature -- Gateway Models
 			Result.put_string(a_connection_properties.device_name, json_string_dollar_device)
 		end
 
-	serialize_presence(a_presence: PRESENCE): JSON_OBJECT
+	serialize_presence(a_presence: USER_PRESENCE): JSON_OBJECT
 			-- <Precursor>
 		do
 			create Result.make_with_capacity(4)

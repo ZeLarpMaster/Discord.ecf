@@ -8,7 +8,7 @@ class
 	SERVER
 
 inherit
-	OBJECT
+	DISCORD_OBJECT
 
 create {MODEL_FACTORY}
 	make

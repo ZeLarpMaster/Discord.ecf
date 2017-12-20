@@ -6,7 +6,7 @@ note
 	url: "https://discordapp.com/developers/docs/topics/gateway#gateway-status-update-gateway-status-update-structure"
 
 class
-	PRESENCE
+	USER_PRESENCE
 
 inherit
 	SERIALIZABLE
@@ -18,7 +18,8 @@ feature {NONE} -- Initialization
 
 	make(a_serializer: SERIALIZER; a_status: PRESENCE_STATUS; a_is_afk: BOOLEAN;
 	     a_game: detachable GAME_STATUS; a_idle_since: detachable DATE_TIME)
-			-- Initializes `Current' to be serialized with `a_serializer'
+			-- Initializes `Current' to be serialized with `a_serializer', `status' `a_status',
+			--   `is_afk' `a_is_afk', `game' `a_game', and `idle_since' `a_idle_since'
 		do
 			make_serializable(a_serializer)
 			status := a_status

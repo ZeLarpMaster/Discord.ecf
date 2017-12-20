@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialization
 
 	make(a_serializer: SERIALIZER; a_token: READABLE_STRING_GENERAL; a_properties: GATEWAY_CONNECTION_PROPERTIES;
-		 a_compress: BOOLEAN; a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: PRESENCE)
+		 a_compress: BOOLEAN; a_large_threshold: NATURAL_8; a_shard_number: NATURAL_64; a_presence: USER_PRESENCE)
 			-- Initializes `Current' to be serialized with `a_serializer' and to contain the given data
 		require
 			Token_Not_Empty: not a_token.is_empty
@@ -88,7 +88,7 @@ feature -- Access
 	shard_id: detachable CELL[NATURAL_64]
 			-- The identifier of the shard currently identified
 
-	presence: PRESENCE
+	presence: USER_PRESENCE
 			-- The initial presence of the current application on connection
 
 end

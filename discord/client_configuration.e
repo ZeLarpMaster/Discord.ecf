@@ -39,8 +39,8 @@ feature -- Access
 	large_threshold: NATURAL_8 = 250
 			-- The number of {MEMBER}s in a {SERVER} before Discord stops sending us offline {MEMBER}s
 
-	default_presence: PRESENCE
-			-- The {PRESENCE} of the application on startup
+	default_presence: USER_PRESENCE
+			-- The {USER_PRESENCE} of the application on startup
 
 	library_name: READABLE_STRING_GENERAL
 			-- The name of this library

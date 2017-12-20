@@ -28,7 +28,7 @@ feature -- Gateway Models
 		deferred
 		end
 
-	serialize_presence(a_presence: PRESENCE): ANY
+	serialize_presence(a_presence: USER_PRESENCE): ANY
 			-- Serializes `a_presence'
 		deferred
 		end
